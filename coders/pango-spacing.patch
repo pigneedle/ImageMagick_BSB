@@ -1,0 +1,18 @@
+diff --git a/pango.c b/pango.c
+index 5f91187..f8df397 100755
+--- a/pango.c
++++ b/pango.c
+@@ -309,6 +309,13 @@ static Image *ReadPANGOImage(const ImageInfo *image_info,
+       if (LocaleCompare(option,"word-char") == 0)
+         pango_layout_set_wrap(layout,PANGO_WRAP_WORD_CHAR);
+     }
++  option=GetImageOption(image_info,"pango:spacing");
++  if (option != (const char *) NULL)
++    {
++      pango_layout_set_spacing(layout,(int) ((StringToLong(option)*
++        (image->resolution.x == 0.0 ? DefaultSVGDensity : image->resolution.x)*
++        PANGO_SCALE+DefaultSVGDensity/2)/DefaultSVGDensity+0.5));
++    }
+   option=GetImageOption(image_info,"pango:indent");
+   if (option != (const char *) NULL)
+     pango_layout_set_indent(layout,(int) ((StringToLong(option)*
